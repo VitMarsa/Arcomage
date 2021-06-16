@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0E196E6F-6DAF-462E-B1A3-2E13B5D639B6}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Arcomage</RootNamespace>
+    <AssemblyName>Arcomage</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="BackgroundList.cs" />
+    <Compile Include="BackgroundWindow.xaml.cs">
+      <DependentUpon>BackgroundWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Hrac.cs" />
+    <Compile Include="Pozadi.cs" />
+    <Compile Include="SpravceHry.cs" />
+    <Compile Include="VitezneOkno.xaml.cs">
+      <DependentUpon>VitezneOkno.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vlastnosti.cs" />
+    <Page Include="BackgroundWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HerniObrazovka.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HerniObrazovka.xaml.cs">
+      <DependentUpon>HerniObrazovka.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Karta.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="VitezneOkno.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\arcomage_title.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\button_play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Cards\NedostatekCihel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\lom.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\magie.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\jeskyne.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\vez_strecha1.png" />
+    <Resource Include="Pictures\vez_strecha2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\vez_dilek1.png" />
+    <Resource Include="Pictures\vez_dilek2.png" />
+    <Resource Include="Pictures\vez_dilek3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\bar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\zed1.png" />
+    <Resource Include="Pictures\zed2.png" />
+    <Resource Include="Pictures\zed3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\background1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Cards\StastnyNalez.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Cards\HlavniTezba.png" />
+    <Resource Include="Pictures\Cards\Hornici.png" />
+    <Resource Include="Pictures\Cards\HrubaZed.png" />
+    <Resource Include="Pictures\Cards\PratelskyTeren.png" />
+    <Resource Include="Pictures\Cards\Prescas.png" />
+    <Resource Include="Pictures\Cards\Trpaslik.png" />
+    <Resource Include="Pictures\Cards\Vyzvedac.png" />
+    <Resource Include="Pictures\Cards\ZakladniZed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Cards\DraciSrdce.png" />
+    <Resource Include="Pictures\Cards\HarmonickaRuda.png" />
+    <Resource Include="Pictures\Cards\Inovace.png" />
+    <Resource Include="Pictures\Cards\KamennaZahrada.png" />
+    <Resource Include="Pictures\Cards\Kasarna.png" />
+    <Resource Include="Pictures\Cards\Kolaps.png" />
+    <Resource Include="Pictures\Cards\KonecTezby.png" />
+    <Resource Include="Pictures\Cards\Krystaly.png" />
+    <Resource Include="Pictures\Cards\MocnaZed.png" />
+    <Resource Include="Pictures\Cards\Mrize.png" />
+    <Resource Include="Pictures\Cards\NoveVybaveni.png" />
+    <Resource Include="Pictures\Cards\NucenaPrace.png" />
+    <Resource Include="Pictures\Cards\ObrnenaZed.png" />
+    <Resource Include="Pictures\Cards\Opevneni.png" />
+    <Resource Include="Pictures\Cards\Otresy.png" />
+    <Resource Include="Pictures\Cards\PresnyNavrh.png" />
+    <Resource Include="Pictures\Cards\Presun.png" />
+    <Resource Include="Pictures\Cards\TajnaMistnost.png" />
+    <Resource Include="Pictures\Cards\VelkaZed.png" />
+    <Resource Include="Pictures\Cards\VrhacKamene.png" />
+    <Resource Include="Pictures\Cards\VysokaZed.png" />
+    <Resource Include="Pictures\Cards\Zaplavy.png" />
+    <Resource Include="Pictures\Cards\Zemetreseni.png" />
+    <Resource Include="Pictures\Cards\Zaklady.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\rune_ico1.png" />
+    <Resource Include="Pictures\rune_ico2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Cards\Ametyst.png" />
+    <Resource Include="Pictures\Cards\BalicekDrobnosti.png" />
+    <Resource Include="Pictures\Cards\Diamant.png" />
+    <Resource Include="Pictures\Cards\DiamantoveKopi.png" />
+    <Resource Include="Pictures\Cards\DraciOko.png" />
+    <Resource Include="Pictures\Cards\Duha.png" />
+    <Resource Include="Pictures\Cards\Harmonie.png" />
+    <Resource Include="Pictures\Cards\Hranol.png" />
+    <Resource Include="Pictures\Cards\KourovyKrystal.png" />
+    <Resource Include="Pictures\Cards\Krystal.png" />
+    <Resource Include="Pictures\Cards\Krystalizace.png" />
+    <Resource Include="Pictures\Cards\KrystalovaMatice.png" />
+    <Resource Include="Pictures\Cards\KrystalovyStit.png" />
+    <Resource Include="Pictures\Cards\LavovyBlok.png" />
+    <Resource Include="Pictures\Cards\Magnetovec.png" />
+    <Resource Include="Pictures\Cards\MocnyZazeh.png" />
+    <Resource Include="Pictures\Cards\Neshoda.png" />
+    <Resource Include="Pictures\Cards\OdrazBlesku.png" />
+    <Resource Include="Pictures\Cards\OhnivyRubin.png" />
+    <Resource Include="Pictures\Cards\PerlaVedeni.png" />
+    <Resource Include="Pictures\Cards\PoskozenyDiamant.png" />
+    <Resource Include="Pictures\Cards\PratelskyDrahokam.png" />
+    <Resource Include="Pictures\Cards\PromenaDrahokamu.png" />
+    <Resource Include="Pictures\Cards\RozpadajiciKamen.png" />
+    <Resource Include="Pictures\Cards\Rubin.png" />
+    <Resource Include="Pictures\Cards\Safir.png" />
+    <Resource Include="Pictures\Cards\SlunecniZare.png" />
+    <Resource Include="Pictures\Cards\Smaragd.png" />
+    <Resource Include="Pictures\Cards\Svatyne.png" />
+    <Resource Include="Pictures\Cards\TezebniVypomoc.png" />
+    <Resource Include="Pictures\Cards\UcednikBlesku.png" />
+    <Resource Include="Pictures\Cards\Vyrovnani.png" />
+    <Resource Include="Pictures\Cards\Vyvolavac.png" />
+    <Resource Include="Pictures\Cards\Zurivost.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Cards\Berserkr.png" />
+    <Resource Include="Pictures\Cards\DavGoblinu.png" />
+    <Resource Include="Pictures\Cards\DivokaOvce.png" />
+    <Resource Include="Pictures\Cards\DivokyCmelak.png" />
+    <Resource Include="Pictures\Cards\Dobyvatel.png" />
+    <Resource Include="Pictures\Cards\Drak.png" />
+    <Resource Include="Pictures\Cards\ElfiLukostrelci.png" />
+    <Resource Include="Pictures\Cards\ElfiPruzkumnik.png" />
+    <Resource Include="Pictures\Cards\Gnom.png" />
+    <Resource Include="Pictures\Cards\GobliniLukostrelci.png" />
+    <Resource Include="Pictures\Cards\Gremlin.png" />
+    <Resource Include="Pictures\Cards\Imp.png" />
+    <Resource Include="Pictures\Cards\Jednorozec.png" />
+    <Resource Include="Pictures\Cards\KamenniBojovnici.png" />
+    <Resource Include="Pictures\Cards\KamenyObr.png" />
+    <Resource Include="Pictures\Cards\Kopinik.png" />
+    <Resource Include="Pictures\Cards\MaliHadi.png" />
+    <Resource Include="Pictures\Cards\Minotaur.png" />
+    <Resource Include="Pictures\Cards\MrakKoroze.png" />
+    <Resource Include="Pictures\Cards\MrzutiGoblini.png" />
+    <Resource Include="Pictures\Cards\NemocSilenychKrav.png" />
+    <Resource Include="Pictures\Cards\PegasKopinik.png" />
+    <Resource Include="Pictures\Cards\Skret.png" />
+    <Resource Include="Pictures\Cards\Sukuba.png" />
+    <Resource Include="Pictures\Cards\TemnaVila.png" />
+    <Resource Include="Pictures\Cards\TroliDozorce.png" />
+    <Resource Include="Pictures\Cards\Upir.png" />
+    <Resource Include="Pictures\Cards\Uplnek.png" />
+    <Resource Include="Pictures\Cards\Valecnik.png" />
+    <Resource Include="Pictures\Cards\Vila.png" />
+    <Resource Include="Pictures\Cards\Vlkodlak.png" />
+    <Resource Include="Pictures\Cards\Zlobr.png" />
+    <Resource Include="Pictures\Cards\Zlodej.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Cards\Trpaslici.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\victory_background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\arcomage.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\background2.jpg" />
+    <Resource Include="Pictures\background3.jpg" />
+    <Resource Include="Pictures\background4.jpg" />
+    <Resource Include="Pictures\background5.jpg" />
+    <Resource Include="Pictures\background6.jpg" />
+    <Resource Include="Pictures\background7.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\ok_button.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
