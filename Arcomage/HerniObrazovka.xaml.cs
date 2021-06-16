@@ -71,6 +71,18 @@ namespace Arcomage
                 OnPropertyChanged(nameof(Karta5));
             }
         }
+
+        private string kartaInfo;
+        public string KartaInfo
+        {
+            get => kartaInfo;
+            set
+            {
+                kartaInfo = value;
+                OnPropertyChanged(nameof(kartaInfo));
+            }
+        }
+
         private Thickness margin;
         private string backgrounds;
         public string Backgrounds
@@ -90,7 +102,7 @@ namespace Arcomage
             InitializeComponent();
             this.spravce = spravce;
             spravce.Vitezstvi += Vitezstvi;
-            spravce.AktualizujAI += Aktualizuj;
+            spravce.Aktualizuj += Aktualizuj;
             gridHrac1.DataContext = spravce.Hrac1;
             gridHrac2.DataContext = spravce.Hrac2;
             gridVezHrac1.DataContext = spravce.Hrac1;
@@ -100,7 +112,7 @@ namespace Arcomage
             textblock_jmenoHrace1.Text = spravce.Hrac1.Jmeno;
             textblock_jmenoHrace2.Text = spravce.Hrac2.Jmeno;
             Backgrounds = @"Pictures/background1.jpg";
-            Aktualizuj();
+            Aktualizuj(false);
         }
         public void Vitezstvi(SpravceHry spravce)
         {
@@ -113,16 +125,14 @@ namespace Arcomage
         private void buttonCard1_Click(object sender, RoutedEventArgs e)
         {
             if (spravce.OdhazujeKartu)
-            {                
+            {
                 spravce.OdhodKartu(spravce.AktualniHrac.ruka[0], 0);
-                Aktualizuj();
             }
             else
             {
                 if (buttonCard1.Opacity == 1)
                 {
                     spravce.PouzijKartu(spravce.AktualniHrac.ruka[0], 0);
-                    Aktualizuj();
                 }
             }
         }
@@ -130,7 +140,6 @@ namespace Arcomage
         private void buttonCard1_RightClick(object sender, RoutedEventArgs e)
         {
             spravce.OdhodKartu(spravce.AktualniHrac.ruka[0], 0);
-            Aktualizuj();
         }
 
         private void buttonCard2_Click(object sender, RoutedEventArgs e)
@@ -138,14 +147,12 @@ namespace Arcomage
             if (spravce.OdhazujeKartu)
             {
                 spravce.OdhodKartu(spravce.AktualniHrac.ruka[1], 1);
-                Aktualizuj();
             }
             else
             {
                 if (buttonCard2.Opacity == 1)
                 {
                     spravce.PouzijKartu(spravce.AktualniHrac.ruka[1], 1);
-                    Aktualizuj();
                 }
             }
         }
@@ -153,7 +160,6 @@ namespace Arcomage
         private void buttonCard2_RightClick(object sender, RoutedEventArgs e)
         {
             spravce.OdhodKartu(spravce.AktualniHrac.ruka[1], 1);
-            Aktualizuj();
         }
 
         private void buttonCard3_Click(object sender, RoutedEventArgs e)
@@ -161,14 +167,12 @@ namespace Arcomage
             if (spravce.OdhazujeKartu)
             {
                 spravce.OdhodKartu(spravce.AktualniHrac.ruka[2], 2);
-                Aktualizuj();
             }
             else
             {
                 if (buttonCard3.Opacity == 1)
                 {
                     spravce.PouzijKartu(spravce.AktualniHrac.ruka[2], 2);
-                    Aktualizuj();
                 }
             }
         }
@@ -176,7 +180,6 @@ namespace Arcomage
         private void buttonCard3_RightClick(object sender, RoutedEventArgs e)
         {
             spravce.OdhodKartu(spravce.AktualniHrac.ruka[2], 2);
-            Aktualizuj();
         }
 
         private void buttonCard4_Click(object sender, RoutedEventArgs e)
@@ -184,14 +187,12 @@ namespace Arcomage
             if (spravce.OdhazujeKartu)
             {
                 spravce.OdhodKartu(spravce.AktualniHrac.ruka[3], 3);
-                Aktualizuj();
             }
             else
             {
                 if (buttonCard4.Opacity == 1)
                 {
                     spravce.PouzijKartu(spravce.AktualniHrac.ruka[3], 3);
-                    Aktualizuj();
                 }
             }
         }
@@ -199,7 +200,6 @@ namespace Arcomage
         private void buttonCard4_RightClick(object sender, RoutedEventArgs e)
         {
             spravce.OdhodKartu(spravce.AktualniHrac.ruka[3], 3);
-            Aktualizuj();
         }
 
         private void buttonCard5_Click(object sender, RoutedEventArgs e)
@@ -207,14 +207,12 @@ namespace Arcomage
             if (spravce.OdhazujeKartu)
             {
                 spravce.OdhodKartu(spravce.AktualniHrac.ruka[4], 4);
-                Aktualizuj();
             }
             else
             {
                 if (buttonCard5.Opacity == 1)
                 {
                     spravce.PouzijKartu(spravce.AktualniHrac.ruka[4], 4);
-                    Aktualizuj();
                 }
             }
         }
@@ -222,7 +220,6 @@ namespace Arcomage
         private void buttonCard5_RightClick(object sender, RoutedEventArgs e)
         {
             spravce.OdhodKartu(spravce.AktualniHrac.ruka[4], 4);
-            Aktualizuj();
         }
 
         private void OnPropertyChanged(string propertyName)
@@ -230,64 +227,82 @@ namespace Arcomage
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void Aktualizuj()
+        private void Aktualizuj(bool info)
         {
-            //Mění karty
-            Karta1 = spravce.AktualniHrac.ruka[0].Picture;
-            if (spravce.Dostatek(spravce.AktualniHrac.ruka[0]))
-                buttonCard1.Opacity = 1;
-            else
-                buttonCard1.Opacity = 0.5;
-            Karta2 = spravce.AktualniHrac.ruka[1].Picture;
-            if (spravce.Dostatek(spravce.AktualniHrac.ruka[1]))
-                buttonCard2.Opacity = 1;
-            else
-                buttonCard2.Opacity = 0.5;
-            Karta3 = spravce.AktualniHrac.ruka[2].Picture;
-            if (spravce.Dostatek(spravce.AktualniHrac.ruka[2]))
-                buttonCard3.Opacity = 1;
-            else
-                buttonCard3.Opacity = 0.5;
-            Karta4 = spravce.AktualniHrac.ruka[3].Picture;
-            if (spravce.Dostatek(spravce.AktualniHrac.ruka[3]))
-                buttonCard4.Opacity = 1;
-            else
-                buttonCard4.Opacity = 0.5;
-            Karta5 = spravce.AktualniHrac.ruka[4].Picture;
-            if (spravce.Dostatek(spravce.AktualniHrac.ruka[4]))
-                buttonCard5.Opacity = 1;
-            else
-                buttonCard5.Opacity = 0.5;
-            //Zvýrazňuje aktivního hráče
-            if (spravce.AktualniHrac == spravce.Hrac1)
-            {
-                textblock_jmenoHrace1.Foreground = Brushes.DarkRed;
-                textblock_jmenoHrace2.Foreground = Brushes.Gold;
-            }
-            else
-            {
-                textblock_jmenoHrace2.Foreground = Brushes.DarkRed;
-                textblock_jmenoHrace1.Foreground = Brushes.Gold;
-            }
-            //Zobrazuje výšku věže a zdi
-            ZobrazVez1((double)spravce.Hrac1.Vez / spravce.VitezstviVez * 100);
-            ZobrazVez2((double)spravce.Hrac2.Vez / spravce.VitezstviVez * 100);
-            ZobrazZed1((double)spravce.Hrac1.Zed / spravce.VitezstviVez * 100);
-            ZobrazZed2((double)spravce.Hrac2.Zed / spravce.VitezstviVez * 100);
-            //Vypíše nutnost odhodit kartu
-            if (spravce.OdhazujeKartu)
-            {
-                textBlock_Info.FontSize = 40;
-                textBlock_Info.Text = "Vyber kartu k odhození!";
-                textBlock_Info.Visibility = Visibility.Visible;                
-            }
-            else
-                textBlock_Info.Visibility = Visibility.Hidden;
-            if (spravce.AI && !spravce.OdhazujeKartu)
+            if (info)
             {
                 textBlock_Info.FontSize = 25;
-                textBlock_Info.Text = string.Format("{0} ", spravce.Hrac2.Jmeno) + spravce.AIReport;
+                textBlock_Info.Text = spravce.Report;
+                KartaInfo = spravce.ZahranaKarta;
                 textBlock_Info.Visibility = Visibility.Visible;
+                image_Info.Visibility = Visibility.Visible;
+                buttonCard1.Opacity = 0.5;
+                buttonCard2.Opacity = 0.5;
+                buttonCard3.Opacity = 0.5;
+                buttonCard4.Opacity = 0.5;
+                buttonCard5.Opacity = 0.5;
+            }
+            else
+            {
+                textBlock_Info.Visibility = Visibility.Hidden;
+                image_Info.Visibility = Visibility.Hidden;
+                //Mění zobrazené karty
+                Karta1 = spravce.AktualniHrac.ruka[0].Picture;
+                if (spravce.Dostatek(spravce.AktualniHrac.ruka[0]))
+                    buttonCard1.Opacity = 1;
+                else
+                    buttonCard1.Opacity = 0.5;
+                Karta2 = spravce.AktualniHrac.ruka[1].Picture;
+                if (spravce.Dostatek(spravce.AktualniHrac.ruka[1]))
+                    buttonCard2.Opacity = 1;
+                else
+                    buttonCard2.Opacity = 0.5;
+                Karta3 = spravce.AktualniHrac.ruka[2].Picture;
+                if (spravce.Dostatek(spravce.AktualniHrac.ruka[2]))
+                    buttonCard3.Opacity = 1;
+                else
+                    buttonCard3.Opacity = 0.5;
+                Karta4 = spravce.AktualniHrac.ruka[3].Picture;
+                if (spravce.Dostatek(spravce.AktualniHrac.ruka[3]))
+                    buttonCard4.Opacity = 1;
+                else
+                    buttonCard4.Opacity = 0.5;
+                Karta5 = spravce.AktualniHrac.ruka[4].Picture;
+                if (spravce.Dostatek(spravce.AktualniHrac.ruka[4]))
+                    buttonCard5.Opacity = 1;
+                else
+                    buttonCard5.Opacity = 0.5;
+                //Zvýrazňuje aktivního hráče
+                if (spravce.AktualniHrac == spravce.Hrac1)
+                {
+                    textblock_jmenoHrace1.Foreground = Brushes.DarkRed;
+                    textblock_jmenoHrace2.Foreground = Brushes.Gold;
+                }
+                else
+                {
+                    textblock_jmenoHrace2.Foreground = Brushes.DarkRed;
+                    textblock_jmenoHrace1.Foreground = Brushes.Gold;
+                }
+                //Zobrazuje výšku věže a zdi
+                ZobrazVez1((double)spravce.Hrac1.Vez / spravce.VitezstviVez * 100);
+                ZobrazVez2((double)spravce.Hrac2.Vez / spravce.VitezstviVez * 100);
+                ZobrazZed1((double)spravce.Hrac1.Zed / spravce.VitezstviVez * 100);
+                ZobrazZed2((double)spravce.Hrac2.Zed / spravce.VitezstviVez * 100);
+                //Vypíše nutnost odhodit kartu
+                if (spravce.OdhazujeKartu)
+                {
+                    textBlock_Info.FontSize = 40;
+                    textBlock_Info.Text = "Vyber kartu k odhození!";
+                    textBlock_Info.Visibility = Visibility.Visible;
+                }
+                else
+                    textBlock_Info.Visibility = Visibility.Hidden;
+                if (spravce.AI && !spravce.OdhazujeKartu)
+                {
+                    textBlock_Info.FontSize = 25;
+                    textBlock_Info.Text = string.Format("{0} ", spravce.Hrac2.Jmeno) + spravce.Report;
+                    textBlock_Info.Visibility = Visibility.Visible;
+                }
             }
         }
 
@@ -423,7 +438,7 @@ namespace Arcomage
 
             margin.Bottom = (int)vez / 7 * 20 + 60;
             margin.Right = 25;
-            vezHrac2_strecha.Margin = margin;            
+            vezHrac2_strecha.Margin = margin;
         }
 
         public void ZobrazZed1(double zed)
@@ -556,7 +571,7 @@ namespace Arcomage
 
         private void buttonBackground_Click(object sender, RoutedEventArgs e)
         {
-            BackgroundWindow  backgroundWindow = new BackgroundWindow(this, spravce);            
+            BackgroundWindow backgroundWindow = new BackgroundWindow(this, spravce);
             backgroundWindow.ShowDialog();
         }
     }

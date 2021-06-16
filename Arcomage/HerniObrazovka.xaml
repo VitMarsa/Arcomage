@@ -194,6 +194,7 @@
                     <TextBlock Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" FontSize="30" FontWeight="Black" FontFamily="Book Antiqua" Text="Příšery" />
                 </Grid>
             </Grid>
+            <Image Name="image_Info" Grid.Row="1" Grid.Column="1" Width="200" Height="250" Source="{Binding KartaInfo}" />
             <TextBlock Name="textBlock_Info" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Padding="10" FontSize="40" FontFamily="Book Antiqua" FontWeight="Black" Foreground="DarkRed" Background="Gold" Text="Vyber kartu k odhození!" Visibility="Hidden"/>
             <Grid Grid.Row="1" Grid.Column="1">
                 <Grid.ColumnDefinitions>

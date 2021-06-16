@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace Arcomage
 {
@@ -18,15 +19,22 @@ namespace Arcomage
         public int VitezstviSuroviny { get; set; }
         public bool HrajeZnovu { get; set; }
         public bool OdhazujeKartu { get; set; }
-        public bool AI { get; set; }
-        public string AIReport { get; set; }
+        public bool AI { get; set; }        
         public event Action<SpravceHry> Vitezstvi;
-        public event Action AktualizujAI;
+        public event Action<bool> Aktualizuj;
         public string ZpusobVitezstvi;
         public BackgroundList backgroundList;
+        private DispatcherTimer timer;
+        public string ZahranaKarta { get; set; }
+        public string Report { get; set; }
         public SpravceHry(string jmeno1, string jmeno2, int tezba, int magie, int jeskyne, int cihly, int drahokamy, int prisery, int vez, int zed, int vitezstviVez, int vitezstviSuroviny, bool ai)
         {
             randomizer = new Random();
+            timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(2000)
+            };
+            timer.Tick += Timer_Tick;
             VitezstviVez = vitezstviVez;
             VitezstviSuroviny = vitezstviSuroviny;
             Hrac1 = new Hrac(jmeno1, VytvorBalicek(), tezba, magie, jeskyne, cihly, drahokamy, prisery, vez, zed);
@@ -39,7 +47,13 @@ namespace Arcomage
             AI = ai;
             backgroundList = new BackgroundList();
             PridejPozadi();
-        }        
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            Aktualizuj(false);
+            timer.Stop();
+        }
 
         public void PouzijKartu(Karta karta, int i)
         {            
@@ -48,6 +62,9 @@ namespace Arcomage
             AktualniHrac.Cihly -= karta.CenaCihly;
             AktualniHrac.Drahokamy -= karta.CenaDrahokamy;
             AktualniHrac.Prisery -= karta.CenaPrisery;
+            //Uloží informace o odehrané kartě
+            ZahranaKarta = karta.Picture;
+            Report = AktualniHrac.Jmeno + " použil " + karta.Jmeno;
             //Vygeneruje novou kartu a nahradí jí stávající v ruce
             AktualniHrac.ruka[i] = LizniKartu(AktualniHrac);
             //Kontroluje, jestli hráč nepoužil celý balíček a případně jej resetuje kromě karet z ruky
@@ -57,6 +74,8 @@ namespace Arcomage
                 for (int j = 0; j < 5; j++)
                     AktualniHrac.pouzite.Add(AktualniHrac.ruka[j]);
             }
+            Aktualizuj(true);
+            timer.Start();
             //Kontroluje, jestli hráč nemá hrát znovu
             //Pokud je aktivované AI a stane se aktivním hráčem hráč 2, odehraje AI svůj tah.
             if (!HrajeZnovu)
@@ -78,6 +97,9 @@ namespace Arcomage
             //Výjimka pro kartu Magnetovec, která nemůže být odložena
             if (karta.Picture == "Pictures/Cards/Magnetovec.png")
                 return;
+            //Uloží informace o odehrané kartě
+            ZahranaKarta = karta.Picture;
+            Report = AktualniHrac.Jmeno + " odhodil " + karta.Jmeno;
             //Vygeneruje novou kartu a nahradí jí stávající v ruce
             AktualniHrac.ruka[i] = LizniKartu(AktualniHrac);
             //Kontroluje, jestli hráč nepoužil celý balíček a případně jej resetuje kromě karet z ruky
@@ -89,6 +111,8 @@ namespace Arcomage
             }
             //Kontroluje, jestli hráč využívá možnosti odhodit a hrát znovu
             //Pokud je aktivované AI a stane se aktivním hráčem hráč 2, odehraje AI svůj tah.
+            Aktualizuj(true);
+            timer.Start();
             if (!OdhazujeKartu)
             {                
                 KonecTahu();
@@ -125,10 +149,10 @@ namespace Arcomage
                     int j = randomizer.Next(5);
                     if (Dostatek(AktualniHrac.ruka[j]))
                     {
-                        AIReport = "použil " + AktualniHrac.ruka[j].Jmeno;                        
+                        Report = "použil " + AktualniHrac.ruka[j].Jmeno;                        
                         PouzijKartu(AktualniHrac.ruka[j], j);
                         neplatnaKarta = false;
-                        AktualizujAI();
+                        Aktualizuj(false);
                     }
                 }
                 //Není-li dostupná žádná karta, AI jednu náhdoně odhodí, pokud to není magnetovec. Pokud použil odhazovací kartu, odhodí ji a odehraje nový tah.
@@ -137,10 +161,10 @@ namespace Arcomage
                     int j = randomizer.Next(5);
                     if (!(AktualniHrac.ruka[j].Picture == "Pictures/Cards/Magnetovec.png"))
                     {
-                        AIReport = "odhodil " + AktualniHrac.ruka[j].Jmeno;
+                        Report = "odhodil " + AktualniHrac.ruka[j].Jmeno;
                         OdhodKartu(AktualniHrac.ruka[j], j);
                         neplatnaKarta = false;                        
-                        AktualizujAI();
+                        Aktualizuj(false);
                     }
                 }
             }
