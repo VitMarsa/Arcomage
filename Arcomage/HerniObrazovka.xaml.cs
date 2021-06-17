@@ -112,6 +112,7 @@ namespace Arcomage
             textblock_jmenoHrace1.Text = spravce.Hrac1.Jmeno;
             textblock_jmenoHrace2.Text = spravce.Hrac2.Jmeno;
             Backgrounds = @"Pictures/background1.jpg";
+            VykresliHerniObrazovku();
             Aktualizuj(false);
         }
         public void Vitezstvi(SpravceHry spravce)
@@ -231,19 +232,27 @@ namespace Arcomage
         {
             if (info)
             {
+                //Zobrazuje výšku věže a zdi
+                VykresliHerniObrazovku();
+                //Nastaví informace o odehrané kartě a zobrazí je
                 textBlock_Info.FontSize = 25;
                 textBlock_Info.Text = spravce.Report;
                 KartaInfo = spravce.ZahranaKarta;
                 textBlock_Info.Visibility = Visibility.Visible;
                 image_Info.Visibility = Visibility.Visible;
-                buttonCard1.Opacity = 0.5;
-                buttonCard2.Opacity = 0.5;
-                buttonCard3.Opacity = 0.5;
-                buttonCard4.Opacity = 0.5;
-                buttonCard5.Opacity = 0.5;
+                buttonCard1.IsEnabled = false;
+                buttonCard2.IsEnabled = false;
+                buttonCard3.IsEnabled = false;
+                buttonCard4.IsEnabled = false;
+                buttonCard5.IsEnabled = false;
             }
             else
             {
+                buttonCard1.IsEnabled = true;
+                buttonCard2.IsEnabled = true;
+                buttonCard3.IsEnabled = true;
+                buttonCard4.IsEnabled = true;
+                buttonCard5.IsEnabled = true;
                 textBlock_Info.Visibility = Visibility.Hidden;
                 image_Info.Visibility = Visibility.Hidden;
                 //Mění zobrazené karty
@@ -283,11 +292,6 @@ namespace Arcomage
                     textblock_jmenoHrace2.Foreground = Brushes.DarkRed;
                     textblock_jmenoHrace1.Foreground = Brushes.Gold;
                 }
-                //Zobrazuje výšku věže a zdi
-                ZobrazVez1((double)spravce.Hrac1.Vez / spravce.VitezstviVez * 100);
-                ZobrazVez2((double)spravce.Hrac2.Vez / spravce.VitezstviVez * 100);
-                ZobrazZed1((double)spravce.Hrac1.Zed / spravce.VitezstviVez * 100);
-                ZobrazZed2((double)spravce.Hrac2.Zed / spravce.VitezstviVez * 100);
                 //Vypíše nutnost odhodit kartu
                 if (spravce.OdhazujeKartu)
                 {
@@ -297,13 +301,15 @@ namespace Arcomage
                 }
                 else
                     textBlock_Info.Visibility = Visibility.Hidden;
-                if (spravce.AI && !spravce.OdhazujeKartu)
-                {
-                    textBlock_Info.FontSize = 25;
-                    textBlock_Info.Text = string.Format("{0} ", spravce.Hrac2.Jmeno) + spravce.Report;
-                    textBlock_Info.Visibility = Visibility.Visible;
-                }
             }
+        }
+
+        public void VykresliHerniObrazovku()
+        {
+            ZobrazVez1((double)spravce.Hrac1.Vez / spravce.VitezstviVez * 100);
+            ZobrazVez2((double)spravce.Hrac2.Vez / spravce.VitezstviVez * 100);
+            ZobrazZed1((double)spravce.Hrac1.Zed / spravce.VitezstviVez * 100);
+            ZobrazZed2((double)spravce.Hrac2.Zed / spravce.VitezstviVez * 100);
         }
 
         public void ZobrazVez1(double vez)
